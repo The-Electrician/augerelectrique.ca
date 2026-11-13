@@ -35,6 +35,15 @@ const SERVICES = [
 
 const SHORT = {"Résidentiel":"Construction neuve, rénovation et réparation pour la maison.","Commercial":"Entrées électriques, mises à la terre, éclairage et câblage pour les commerces.","Industriel":"Des solutions précises, adaptées et durables pour l’industrie.","Borne de recharge":"Installation électrique complète de votre borne pour véhicule électrique.","Chauffage":"Conseils et installation du type de chauffage adapté à vos besoins."};
 
+// Photos du site (fichier, texte alternatif décrivant l'image pour Google et l'accessibilité)
+const PHOTOS = {
+  "Résidentiel": ["electricien-residentiel-la-sarre.jpg", "Prise électrique en cours d’installation dans une résidence"],
+  "Commercial": ["electricien-commercial-la-sarre.jpg", "Électricien manipulant des câbles électriques pour un commerce"],
+  "Industriel": ["electricien-industriel-la-sarre.jpg", "Électricien effectuant des tests sur une machine industrielle"],
+  "Borne de recharge": ["borne-de-recharge-la-sarre.jpg", "Borne de recharge pour véhicule électrique"],
+  "Chauffage": ["chauffage-electrique-la-sarre.jpg", "Plinthe de chauffage électrique"],
+};
+
 const FAQ = [
   ["Quels services proposez-vous?", "Nous offrons une gamme complète de services électriques, comprenant l’installation, la réparation, l’entretien et la mise à niveau de systèmes électriques résidentiels, commerciaux et industriels."],
   ["Êtes-vous agréés et assurés?", "Oui, nous sommes dûment agréés et assurés pour exercer nos activités d’électriciens professionnels. Vous pouvez avoir confiance en notre expertise et notre engagement en matière de sécurité."],
@@ -172,7 +181,7 @@ const pages = [
   <h2>Nos services électriques</h2>
   <p class="lead">Des solutions sur mesure pour la maison, le commerce et l’industrie.</p>
   <div class="cards" style="text-align:left">
-    ${SERVICES.map(([i, t, d]) => `<div class="card"><div class="ico">${icon(i)}</div><h3>${t}</h3><p>${SHORT[t]}</p></div>`).join("")}
+    ${SERVICES.map(([i, t]) => `<div class="card photo"><img src="img/${PHOTOS[t][0]}" alt="${PHOTOS[t][1]}" width="1200" height="800" loading="lazy"><div class="card-body"><h3>${t}</h3><p>${SHORT[t]}</p></div></div>`).join("")}
   </div>
   <p style="margin-top:28px"><a class="btn" href="services/">Voir tous nos services</a></p>
 </div></section>
@@ -206,7 +215,7 @@ ${faqSection}`,
   <p>Industriel – Commercial – Résidentiel – Entrée électrique – Panneau électrique – Borne de recharge – Construction – Rénovation – Piscine – Spa – Chauffage – Éclairage</p>
 </div></section>
 <section><div class="wrap">
-  ${SERVICES.map(([i, t, d]) => `<div class="service"><div class="ico">${icon(i)}</div><div><h2 style="font-size:24px;margin-bottom:6px">${t}</h2><p>${d}</p></div></div>`).join("")}
+  ${SERVICES.map(([i, t, d]) => `<div class="service"><img src="../img/${PHOTOS[t][0]}" alt="${PHOTOS[t][1]}" width="1200" height="800" loading="lazy"><div><h2 style="font-size:24px;margin-bottom:6px">${t}</h2><p>${d}</p></div></div>`).join("")}
   <p style="margin-top:28px"><a class="btn" href="${TEL_LINK}">Estimation gratuite : ${TEL}</a></p>
 </div></section>
 <section class="alt"><div class="wrap">

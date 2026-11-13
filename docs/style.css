@@ -114,3 +114,12 @@ footer.site .bottom{border-top:1px solid rgba(255,255,255,.1);margin-top:30px;pa
 
 .prose{max-width:820px}
 .prose h2{font-size:24px;margin-top:34px}
+
+/* Photos */
+.hero{background:linear-gradient(160deg,rgba(11,26,46,.92) 0%,rgba(14,42,77,.82) 100%),url("img/electricien-commercial-la-sarre.jpg") center/cover no-repeat}
+.card.photo{padding:0;overflow:hidden;display:flex;flex-direction:column}
+.card.photo img{display:block;width:100%;aspect-ratio:3/2;object-fit:cover}
+.card.photo .card-body{padding:18px 20px 22px}
+.service{grid-template-columns:260px 1fr;align-items:center}
+.service img{width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:var(--radius);display:block}
+@media (max-width:640px){.service{grid-template-columns:1fr}}
