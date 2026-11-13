@@ -123,3 +123,5 @@ footer.site .bottom{border-top:1px solid rgba(255,255,255,.1);margin-top:30px;pa
 .service{grid-template-columns:260px 1fr;align-items:center}
 .service img{width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:var(--radius);display:block}
 @media (max-width:640px){.service{grid-template-columns:1fr}}
+.card.photo .card-body{position:relative;padding-top:38px}
+.card.photo .ico{position:absolute;top:-23px;left:20px;margin:0;box-shadow:0 0 0 4px #fff}

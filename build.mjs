@@ -181,7 +181,7 @@ const pages = [
   <h2>Nos services électriques</h2>
   <p class="lead">Des solutions sur mesure pour la maison, le commerce et l’industrie.</p>
   <div class="cards" style="text-align:left">
-    ${SERVICES.map(([i, t]) => `<div class="card photo"><img src="img/${PHOTOS[t][0]}" alt="${PHOTOS[t][1]}" width="1200" height="800" loading="lazy"><div class="card-body"><h3>${t}</h3><p>${SHORT[t]}</p></div></div>`).join("")}
+    ${SERVICES.map(([i, t]) => `<div class="card photo"><img src="img/${PHOTOS[t][0]}" alt="${PHOTOS[t][1]}" width="1200" height="800" loading="lazy"><div class="card-body"><div class="ico">${icon(i)}</div><h3>${t}</h3><p>${SHORT[t]}</p></div></div>`).join("")}
   </div>
   <p style="margin-top:28px"><a class="btn" href="services/">Voir tous nos services</a></p>
 </div></section>
