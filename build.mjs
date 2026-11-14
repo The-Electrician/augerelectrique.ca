@@ -112,7 +112,7 @@ function page({ path, title, description, current, body, extraLd = [] }) {
   <a class="logo" href="${r}"><img src="${r}img/logo_Auger_Electrique_2018.png" alt="Auger Électrique inc." width="601" height="308"></a>
   <button class="menu-toggle" aria-expanded="false" aria-controls="menu">Menu</button>
   <nav id="menu" aria-label="Menu principal"><ul>${nav}</ul></nav>
-  <a class="btn head-cta" href="${TEL_LINK}">Estimation</a>
+  <a class="btn head-cta" href="${r}contact/">Estimation</a>
 </div></header>
 <main>
 ${body}
