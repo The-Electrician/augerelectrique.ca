@@ -12,6 +12,9 @@ const ADDR = "440, 2e rue Est, La Sarre (Québec) J9Z 2J3";
 const MAPS = "https://www.google.com/maps/search/?api=1&query=440+2e+rue+Est+La+Sarre+QC+J9Z+2J3";
 const FB = "https://www.facebook.com/ElectricienLaSarre";
 const YEAR = new Date().getFullYear();
+// Clé publique Web3Forms (service qui transmet le formulaire par courriel sans afficher l'adresse).
+// Elle est faite pour être visible dans la page ; l'adresse de réception reste cachée chez Web3Forms.
+const WEB3FORMS_KEY = "3920dbc2-fa7a-4c60-9edb-c0b77ec32d93";
 
 const ICONS = {
   home: '<path d="M3 11l9-8 9 8v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/>',
@@ -47,7 +50,7 @@ const PHOTOS = {
 const FAQ = [
   ["Quels services proposez-vous?", "Nous offrons une gamme complète de services électriques, comprenant l’installation, la réparation, l’entretien et la mise à niveau de systèmes électriques résidentiels, commerciaux et industriels."],
   ["Êtes-vous agréés et assurés?", "Oui, nous sommes dûment agréés et assurés pour exercer nos activités d’électriciens professionnels. Vous pouvez avoir confiance en notre expertise et notre engagement en matière de sécurité."],
-  ["Comment puis-je obtenir une soumission?", `Il vous suffit de nous appeler au ${TEL}. Nous serons ravis de discuter de vos besoins et de vous fournir une estimation détaillée, gratuitement.`],
+  ["Comment puis-je obtenir une soumission?", `Il vous suffit de nous appeler au ${TEL} ou de remplir le formulaire de demande de soumission sur notre page Contact. Nous serons ravis de discuter de vos besoins et de vous fournir une estimation détaillée, gratuitement.`],
   ["Quels sont vos délais d’intervention?", "Nos délais varient selon la nature et l’urgence de chaque projet. Nous nous efforçons toujours de répondre rapidement à vos demandes et de respecter les délais convenus."],
   ["Quelle est votre zone de service?", "Nous sommes basés à La Sarre et desservons également les régions environnantes en Abitibi-Ouest. Contactez-nous pour vérifier si nous couvrons votre emplacement."],
 ];
@@ -112,7 +115,7 @@ function page({ path, title, description, current, body, extraLd = [] }) {
   <a class="logo" href="${r}"><img src="${r}img/logo_Auger_Electrique_2018.png" alt="Auger Électrique inc." width="601" height="308"></a>
   <button class="menu-toggle" aria-expanded="false" aria-controls="menu">Menu</button>
   <nav id="menu" aria-label="Menu principal"><ul>${nav}</ul></nav>
-  <a class="btn head-cta" href="${r}contact/">Estimation</a>
+  <a class="btn head-cta" href="${r}contact/#soumission">Estimation</a>
 </div></header>
 <main>
 ${body}
@@ -251,7 +254,7 @@ ${faqSection.replace('class="alt"', "")}`,
     body: `<section class="hero small"><div class="wrap">
   <span class="eyebrow">Auger Électrique inc.</span>
   <h1>Contactez-nous</h1>
-  <p>Pour toute demande de renseignements ou pour obtenir une soumission gratuite, n’hésitez pas à nous appeler. Nous sommes là pour répondre à vos questions et vous aider à réaliser vos projets électriques.</p>
+  <p>Pour toute demande de renseignements ou pour obtenir une soumission gratuite, appelez-nous ou remplissez le formulaire ci-dessous. Nous sommes là pour répondre à vos questions et vous aider à réaliser vos projets électriques.</p>
 </div></section>
 <section><div class="wrap">
   <div class="contact-grid">
@@ -259,7 +262,48 @@ ${faqSection.replace('class="alt"', "")}`,
     <div class="card"><div class="ico">${icon("pin")}</div><h3>Adresse</h3><p><a href="${MAPS}" rel="noopener" target="_blank" style="font-size:17px">${ADDR}</a></p></div>
     <div class="card"><div class="ico">${icon("clock")}</div><h3>Heures d’ouverture</h3><p>Du lundi au vendredi<br>de 8 h à 17 h</p></div>
   </div>
-</div></section>`,
+</div></section>
+<section class="alt" id="soumission"><div class="wrap">
+  <div class="form-intro">
+    <h2>Demande de soumission gratuite</h2>
+    <p class="lead">Décrivez votre projet et nous vous répondrons dans les plus brefs délais. Pour une urgence, appelez-nous au <a href="${TEL_LINK}">${TEL}</a>.</p>
+  </div>
+  <form id="form-soumission" class="form" action="https://api.web3forms.com/submit" method="POST">
+    <input type="hidden" name="access_key" value="${WEB3FORMS_KEY}">
+    <input type="hidden" name="subject" value="Nouvelle demande de soumission – augerelectrique.ca">
+    <input type="hidden" name="from_name" value="Site Web Auger Électrique">
+    <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <div class="field"><label for="f-nom">Nom complet *</label><input id="f-nom" name="Nom" required autocomplete="name"></div>
+    <div class="field"><label for="f-tel">Téléphone *</label><input id="f-tel" name="Téléphone" type="tel" required autocomplete="tel"></div>
+    <div class="field"><label for="f-courriel">Courriel *</label><input id="f-courriel" name="email" type="email" required autocomplete="email"></div>
+    <div class="field"><label for="f-ville">Ville des travaux</label><input id="f-ville" name="Ville" autocomplete="address-level2" placeholder="Ex. : La Sarre"></div>
+    <div class="field full"><label for="f-type">Type de travaux</label>
+      <select id="f-type" name="Type de travaux">
+        <option>Résidentiel</option><option>Commercial</option><option>Industriel</option><option>Agricole</option><option>Borne de recharge</option><option>Chauffage</option><option>Entrée ou panneau électrique</option><option>Autre</option>
+      </select></div>
+    <div class="field full"><label for="f-msg">Description du projet *</label><textarea id="f-msg" name="Description" rows="6" required placeholder="Décrivez les travaux à faire, l’échéancier souhaité, etc."></textarea></div>
+    <div class="field full check"><input id="f-consent" type="checkbox" name="Consentement" value="Oui" required><label for="f-consent">J’accepte qu’Auger Électrique utilise ces renseignements pour répondre à ma demande, selon la <a href="../cookie-policy-ca/">politique de confidentialité</a>. *</label></div>
+    <div class="field full"><button class="btn" type="submit">Envoyer ma demande</button><p id="form-statut" class="form-status" role="status" aria-live="polite"></p></div>
+  </form>
+</div></section>
+<script>
+(function(){
+  const f=document.getElementById('form-soumission'), s=document.getElementById('form-statut'), b=f.querySelector('button');
+  f.addEventListener('submit', async (e)=>{
+    e.preventDefault();
+    if (f.botcheck.checked) return;
+    b.disabled=true; s.className='form-status'; s.textContent='Envoi en cours…';
+    try {
+      const r=await fetch(f.action,{method:'POST',headers:{'Accept':'application/json'},body:new FormData(f)});
+      const j=await r.json();
+      if (j.success) { f.reset(); s.className='form-status ok'; s.textContent='Merci! Votre demande a bien été envoyée. Nous vous répondrons rapidement.'; }
+      else throw new Error(j.message);
+    } catch(err) {
+      s.className='form-status err'; s.textContent='L’envoi n’a pas fonctionné. Réessayez ou appelez-nous au ${TEL}.';
+    } finally { b.disabled=false; }
+  });
+})();
+</script>`,
   },
   {
     path: "/cookie-policy-ca/", current: "",
@@ -269,8 +313,11 @@ ${faqSection.replace('class="alt"', "")}`,
 <section><div class="wrap prose">
   <p>Auger Électrique inc. s’engage à protéger la confidentialité des renseignements personnels, conformément à la <em>Loi sur la protection des renseignements personnels dans le secteur privé</em> du Québec (Loi 25).</p>
   <h2>Renseignements recueillis par ce site</h2>
-  <p>Ce site Web ne comporte aucun formulaire et n’utilise aucun fichier témoin (cookie) de suivi, de statistiques ou de publicité. Nous ne recueillons donc aucun renseignement personnel par l’entremise du site.</p>
-  <h2>Renseignements que vous nous transmettez</h2>
+  <p>Ce site n’utilise aucun fichier témoin (cookie) de suivi, de statistiques ou de publicité. Le seul moyen par lequel il recueille des renseignements personnels est le formulaire de demande de soumission de la page Contact.</p>
+  <h2>Formulaire de demande de soumission</h2>
+  <p>Lorsque vous remplissez ce formulaire, nous recueillons votre nom, votre numéro de téléphone, votre courriel, la ville des travaux et la description de votre projet. Ces renseignements servent uniquement à répondre à votre demande et à préparer une soumission. Nous les recueillons avec votre consentement, que vous donnez en cochant la case prévue à cet effet.</p>
+  <p>Le formulaire est transmis à notre boîte courriel par le service Web3Forms, qui agit comme intermédiaire technique et peut traiter ces renseignements à l’extérieur du Québec. Nous conservons les demandes reçues aussi longtemps que nécessaire pour y donner suite.</p>
+  <h2>Renseignements que vous nous transmettez par téléphone</h2>
   <p>Lorsque vous communiquez avec nous par téléphone, nous pouvons recueillir votre nom, vos coordonnées et l’adresse des travaux. Ces renseignements servent uniquement à vous fournir une soumission et à réaliser les travaux demandés. Ils ne sont jamais vendus ni communiqués à des tiers, sauf si la loi l’exige.</p>
   <h2>Services tiers</h2>
   <p>Ce site affiche des polices de caractères fournies par Google Fonts. Les liens vers Google Maps et Facebook vous dirigent vers des sites externes soumis à leurs propres politiques de confidentialité.</p>

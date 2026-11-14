@@ -33,13 +33,13 @@
   <a class="logo" href="../"><img src="../img/logo_Auger_Electrique_2018.png" alt="Auger Électrique inc." width="601" height="308"></a>
   <button class="menu-toggle" aria-expanded="false" aria-controls="menu">Menu</button>
   <nav id="menu" aria-label="Menu principal"><ul><li><a href="../">Accueil</a></li><li><a href="../services/">Services</a></li><li><a href="../realisations/">Réalisations</a></li><li><a href="../contact/" aria-current="page">Contact</a></li></ul></nav>
-  <a class="btn head-cta" href="../contact/">Estimation</a>
+  <a class="btn head-cta" href="../contact/#soumission">Estimation</a>
 </div></header>
 <main>
 <section class="hero small"><div class="wrap">
   <span class="eyebrow">Auger Électrique inc.</span>
   <h1>Contactez-nous</h1>
-  <p>Pour toute demande de renseignements ou pour obtenir une soumission gratuite, n’hésitez pas à nous appeler. Nous sommes là pour répondre à vos questions et vous aider à réaliser vos projets électriques.</p>
+  <p>Pour toute demande de renseignements ou pour obtenir une soumission gratuite, appelez-nous ou remplissez le formulaire ci-dessous. Nous sommes là pour répondre à vos questions et vous aider à réaliser vos projets électriques.</p>
 </div></section>
 <section><div class="wrap">
   <div class="contact-grid">
@@ -48,6 +48,47 @@
     <div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><h3>Heures d’ouverture</h3><p>Du lundi au vendredi<br>de 8 h à 17 h</p></div>
   </div>
 </div></section>
+<section class="alt" id="soumission"><div class="wrap">
+  <div class="form-intro">
+    <h2>Demande de soumission gratuite</h2>
+    <p class="lead">Décrivez votre projet et nous vous répondrons dans les plus brefs délais. Pour une urgence, appelez-nous au <a href="tel:+18193335500">819-333-5500</a>.</p>
+  </div>
+  <form id="form-soumission" class="form" action="https://api.web3forms.com/submit" method="POST">
+    <input type="hidden" name="access_key" value="3920dbc2-fa7a-4c60-9edb-c0b77ec32d93">
+    <input type="hidden" name="subject" value="Nouvelle demande de soumission – augerelectrique.ca">
+    <input type="hidden" name="from_name" value="Site Web Auger Électrique">
+    <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <div class="field"><label for="f-nom">Nom complet *</label><input id="f-nom" name="Nom" required autocomplete="name"></div>
+    <div class="field"><label for="f-tel">Téléphone *</label><input id="f-tel" name="Téléphone" type="tel" required autocomplete="tel"></div>
+    <div class="field"><label for="f-courriel">Courriel *</label><input id="f-courriel" name="email" type="email" required autocomplete="email"></div>
+    <div class="field"><label for="f-ville">Ville des travaux</label><input id="f-ville" name="Ville" autocomplete="address-level2" placeholder="Ex. : La Sarre"></div>
+    <div class="field full"><label for="f-type">Type de travaux</label>
+      <select id="f-type" name="Type de travaux">
+        <option>Résidentiel</option><option>Commercial</option><option>Industriel</option><option>Agricole</option><option>Borne de recharge</option><option>Chauffage</option><option>Entrée ou panneau électrique</option><option>Autre</option>
+      </select></div>
+    <div class="field full"><label for="f-msg">Description du projet *</label><textarea id="f-msg" name="Description" rows="6" required placeholder="Décrivez les travaux à faire, l’échéancier souhaité, etc."></textarea></div>
+    <div class="field full check"><input id="f-consent" type="checkbox" name="Consentement" value="Oui" required><label for="f-consent">J’accepte qu’Auger Électrique utilise ces renseignements pour répondre à ma demande, selon la <a href="../cookie-policy-ca/">politique de confidentialité</a>. *</label></div>
+    <div class="field full"><button class="btn" type="submit">Envoyer ma demande</button><p id="form-statut" class="form-status" role="status" aria-live="polite"></p></div>
+  </form>
+</div></section>
+<script>
+(function(){
+  const f=document.getElementById('form-soumission'), s=document.getElementById('form-statut'), b=f.querySelector('button');
+  f.addEventListener('submit', async (e)=>{
+    e.preventDefault();
+    if (f.botcheck.checked) return;
+    b.disabled=true; s.className='form-status'; s.textContent='Envoi en cours…';
+    try {
+      const r=await fetch(f.action,{method:'POST',headers:{'Accept':'application/json'},body:new FormData(f)});
+      const j=await r.json();
+      if (j.success) { f.reset(); s.className='form-status ok'; s.textContent='Merci! Votre demande a bien été envoyée. Nous vous répondrons rapidement.'; }
+      else throw new Error(j.message);
+    } catch(err) {
+      s.className='form-status err'; s.textContent='L’envoi n’a pas fonctionné. Réessayez ou appelez-nous au 819-333-5500.';
+    } finally { b.disabled=false; }
+  });
+})();
+</script>
 </main>
 <section class="cta"><div class="wrap">
   <h2>Un projet électrique? Une urgence?</h2>

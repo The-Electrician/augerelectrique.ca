@@ -125,3 +125,23 @@ footer.site .bottom{border-top:1px solid rgba(255,255,255,.1);margin-top:30px;pa
 @media (max-width:640px){.service{grid-template-columns:1fr}}
 .card.photo .card-body{position:relative;padding-top:38px}
 .card.photo .ico{position:absolute;top:-23px;left:20px;margin:0;box-shadow:0 0 0 4px #fff}
+
+/* Formulaire de soumission */
+.form-intro{max-width:760px;margin-bottom:26px}
+.form{display:grid;grid-template-columns:1fr 1fr;gap:16px 20px;background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:28px;max-width:900px}
+.form .field{display:flex;flex-direction:column;gap:6px;min-width:0}
+.form .full{grid-column:1/-1}
+.form label{font-weight:600;font-size:15px;color:var(--navy)}
+.form input,.form select,.form textarea{font:inherit;font-size:16px;padding:11px 12px;border:1px solid #c5cfdc;border-radius:6px;background:#fff;color:var(--text);width:100%}
+.form textarea{resize:vertical}
+.form input:focus,.form select:focus,.form textarea:focus{outline:2px solid var(--blue-l);outline-offset:1px;border-color:var(--blue-l)}
+.form .check{flex-direction:row;align-items:flex-start;gap:10px}
+.form .check input{width:20px;height:20px;margin-top:2px;flex:none}
+.form .check label{font-weight:400;font-size:15px;color:var(--muted)}
+.form .btn{justify-self:start;align-self:flex-start}
+.form .btn[disabled]{opacity:.6;cursor:wait}
+.form-status{margin:6px 0 0;font-weight:600}
+.form-status.ok{color:#18794e}
+.form-status.err{color:#b42318}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+@media (max-width:640px){.form{grid-template-columns:1fr;padding:20px}}
